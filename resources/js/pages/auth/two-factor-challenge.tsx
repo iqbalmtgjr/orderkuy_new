@@ -3,8 +3,8 @@ import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { useMemo, useState } from 'react';
 
 import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 import {
     InputOTP,
     InputOTPGroup,
@@ -111,11 +111,11 @@ export default function TwoFactorChallenge() {
                                 Continue
                             </Button>
 
-                            <div className="text-center text-sm text-muted-foreground">
+                            <div className="text-muted-foreground text-center text-sm">
                                 <span>or you can </span>
                                 <button
                                     type="button"
-                                    className="cursor-pointer text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
+                                    className="text-foreground cursor-pointer underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                                     onClick={() =>
                                         toggleRecoveryMode(clearErrors)
                                     }

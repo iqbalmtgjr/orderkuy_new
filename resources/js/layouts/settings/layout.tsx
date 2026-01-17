@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import { type PropsWithChildren } from 'react';
 
 import Heading from '@/components/heading';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import { Separator } from '@/components/ui/separator';
 import { useActiveUrl } from '@/hooks/use-active-url';
 import { cn, toUrl } from '@/lib/utils';

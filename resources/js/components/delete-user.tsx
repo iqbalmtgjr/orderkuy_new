@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
 import HeadingSmall from '@/components/heading-small';
 import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/Button';
 import {
     Dialog,
     DialogClose,
@@ -14,8 +14,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
 
 export default function DeleteUser() {
     const passwordInput = useRef<HTMLInputElement>(null);

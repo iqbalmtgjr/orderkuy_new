@@ -1,22 +1,27 @@
-import * as LabelPrimitive from "@radix-ui/react-label"
-import * as React from "react"
+import { clsx } from "clsx";
+import { FC, ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
-import { cn } from "@/lib/utils"
-
-function Label({
-  className,
-  ...props
-}: React.ComponentProps<typeof LabelPrimitive.Root>) {
-  return (
-    <LabelPrimitive.Root
-      data-slot="label"
-      className={cn(
-        "text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
-        className
-      )}
-      {...props}
-    />
-  )
+interface LabelProps {
+  htmlFor?: string;
+  children: ReactNode;
+  className?: string;
 }
 
-export { Label }
+const Label: FC<LabelProps> = ({ htmlFor, children, className }) => {
+  return (
+    <label
+      htmlFor={htmlFor}
+      className={clsx(
+        twMerge(
+          "mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400",
+          className,
+        ),
+      )}
+    >
+      {children}
+    </label>
+  );
+};
+
+export default Label;

@@ -13,30 +13,15 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
 
-    public const ROLE_SUPER_ADMIN = 1;
-    public const ROLE_ADMIN = 2;
-    public const ROLE_KITCHEN = 3;
-    public const ROLE_CASHIER = 4;
-    public const ROLE_CUSTOMER = 5;
-
-    protected $attributes = [
-        'role_id' => self::ROLE_CUSTOMER,
-    ];
-
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
-        'google_id',
-        'facebook_id',
         'name',
-        'username',
         'email',
         'password',
-        'shop_id',
-        'avatar',
     ];
 
     /**
