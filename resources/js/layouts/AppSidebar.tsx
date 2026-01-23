@@ -1,8 +1,15 @@
 import { Link, usePage } from '@inertiajs/react';
-import { ChevronDown, Ellipsis, Eye } from 'lucide-react';
+import {
+    ChevronDown,
+    Ellipsis,
+    Eye,
+    LayoutDashboard,
+    Users,
+} from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useSidebar } from '@/context/SidebarContext';
+import { dashboard } from '@/routes';
 
 type NavItem = {
     name: string;
@@ -13,31 +20,14 @@ type NavItem = {
 
 const navItems: NavItem[] = [
     {
-        icon: <Eye />,
+        icon: <LayoutDashboard />,
         name: 'Dashboard',
-        subItems: [{ name: 'Ecommerce', path: '/', pro: false }],
+        path: dashboard.url(),
     },
     {
-        icon: <Eye />,
-        name: 'Calendar',
-        path: '/calendar',
-    },
-    {
-        icon: <Eye />,
-        name: 'User Profile',
-        path: '/profile',
-    },
-    {
-        name: 'Forms',
-        icon: <Eye />,
-        subItems: [
-            { name: 'Form Elements', path: '/form-elements', pro: false },
-        ],
-    },
-    {
-        name: 'Tables',
-        icon: <Eye />,
-        subItems: [{ name: 'Basic Tables', path: '/basic-tables', pro: false }],
+        icon: <Users />,
+        name: 'Kelola User',
+        path: '/',
     },
     {
         name: 'Pages',
@@ -50,26 +40,6 @@ const navItems: NavItem[] = [
 ];
 
 const othersItems: NavItem[] = [
-    {
-        icon: <Eye />,
-        name: 'Charts',
-        subItems: [
-            { name: 'Line Chart', path: '/line-chart', pro: false },
-            { name: 'Bar Chart', path: '/bar-chart', pro: false },
-        ],
-    },
-    {
-        icon: <Eye />,
-        name: 'UI Elements',
-        subItems: [
-            { name: 'Alerts', path: '/alerts', pro: false },
-            { name: 'Avatar', path: '/avatars', pro: false },
-            { name: 'Badge', path: '/badge', pro: false },
-            { name: 'Buttons', path: '/buttons', pro: false },
-            { name: 'Images', path: '/images', pro: false },
-            { name: 'Videos', path: '/videos', pro: false },
-        ],
-    },
     {
         icon: <Eye />,
         name: 'Authentication',

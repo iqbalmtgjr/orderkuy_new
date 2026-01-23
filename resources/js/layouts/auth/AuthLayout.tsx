@@ -24,8 +24,8 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
                                 />
                             </Link>
                             <p className="text-center text-gray-400 dark:text-white/60">
-                                Free and Open-Source Tailwind CSS Admin
-                                Dashboard Template
+                                Order makanan dan minuman menjadi lebih mudah
+                                dengan OrderKuy!
                             </p>
                         </div>
                     </div>

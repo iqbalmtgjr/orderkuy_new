@@ -4,7 +4,7 @@ import AuthLayout from '@/layouts/auth/AuthLayout';
 const Login = () => {
     return (
         <AuthLayout>
-            <LoginForm />
+            <LoginForm canResetPassword={true} canRegister={true} />
         </AuthLayout>
     );
 };
