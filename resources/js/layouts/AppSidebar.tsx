@@ -10,6 +10,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useSidebar } from '@/context/SidebarContext';
 import { dashboard } from '@/routes';
+import users from '@/routes/users';
 
 type NavItem = {
     name: string;
@@ -27,7 +28,7 @@ const navItems: NavItem[] = [
     {
         icon: <Users />,
         name: 'Kelola User',
-        path: '/',
+        path: users.index.url(),
     },
     {
         name: 'Pages',
@@ -53,7 +54,7 @@ const othersItems: NavItem[] = [
 const AppSidebar: React.FC = () => {
     const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
     const location = usePage().url;
-    console.log('Current location:', location);
+    // console.log('Current location:', location);
     // const location = useLocation();
 
     const [openSubmenu, setOpenSubmenu] = useState<{
@@ -287,14 +288,14 @@ const AppSidebar: React.FC = () => {
                         <>
                             <img
                                 className="dark:hidden"
-                                src="/images/logo/logo.svg"
+                                src="/storage/images/logo/logo-text-black.png"
                                 alt="Logo"
                                 width={150}
                                 height={40}
                             />
                             <img
                                 className="hidden dark:block"
-                                src="/images/logo/logo-dark.svg"
+                                src="/storage/images/logo/logo-text-white.png"
                                 alt="Logo"
                                 width={150}
                                 height={40}
@@ -302,7 +303,7 @@ const AppSidebar: React.FC = () => {
                         </>
                     ) : (
                         <img
-                            src="/images/logo/logo-icon.svg"
+                            src="/storage/images/logo/logo.png"
                             alt="Logo"
                             width={32}
                             height={32}

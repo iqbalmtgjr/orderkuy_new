@@ -14,7 +14,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/Input';
+import { Input } from '@/components/ui/InputField';
 import { Label } from '@/components/ui/Label';
 
 export default function DeleteUser() {

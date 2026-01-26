@@ -1,8 +1,8 @@
 import { Link } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 
-import NotificationDropdown from '@/components/Header/NotificationDropdown';
-import UserDropdown from '@/components/Header/UserDropdown';
+import NotificationDropdown from '@/components/header/NotificationDropdown';
+import UserDropdown from '@/components/header/UserDropdown';
 import { ThemeToggleButton } from '@/components/ThemeToggleButton';
 import { useSidebar } from '@/context/SidebarContext';
 
@@ -86,13 +86,15 @@ const AppHeader: React.FC = () => {
                     <Link href="/" className="lg:hidden">
                         <img
                             className="dark:hidden"
-                            src="./images/logo/logo.svg"
+                            src="/storage/images/logo/logo-text-black.png"
                             alt="Logo"
+                            width={200}
                         />
                         <img
                             className="hidden dark:block"
-                            src="./images/logo/logo-dark.svg"
+                            src="/storage/images/logo/logo-text-white.png"
                             alt="Logo"
+                            width={200}
                         />
                     </Link>
 

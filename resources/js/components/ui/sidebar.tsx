@@ -4,7 +4,7 @@ import { PanelLeftCloseIcon, PanelLeftOpenIcon } from "lucide-react"
 import * as React from "react"
 
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
+import { Input } from "@/components/ui/InputField"
 import { Separator } from "@/components/ui/separator"
 import {
   Sheet,

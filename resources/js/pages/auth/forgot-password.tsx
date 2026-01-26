@@ -5,7 +5,7 @@ import { LoaderCircle } from 'lucide-react';
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { Input } from '@/components/ui/InputField';
 import { Label } from '@/components/ui/Label';
 import AuthLayout from '@/layouts/auth-layout';
 import { login } from '@/routes';

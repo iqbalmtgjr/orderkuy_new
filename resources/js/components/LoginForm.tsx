@@ -6,7 +6,7 @@ import { store } from '@/routes/login';
 
 import Button from './ui/Button';
 import Checkbox from './ui/Checkbox';
-import Input from './ui/Input';
+import Input from './ui/InputField';
 import Label from './ui/Label';
 
 interface LoginProps {

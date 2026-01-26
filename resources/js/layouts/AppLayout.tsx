@@ -1,3 +1,5 @@
+import { Toaster } from 'react-hot-toast';
+
 import { SidebarProvider, useSidebar } from '@/context/SidebarContext';
 
 import AppHeader from './AppHeader';
@@ -7,7 +9,7 @@ import Backdrop from './Backdrop';
 const LayoutContent = ({ children }: { children: React.ReactNode }) => {
     const { isExpanded, isHovered, isMobileOpen } = useSidebar();
     return (
-        <div className="min-h-screen xl:flex">
+        <div className="min-h-screen xl:flex dark:bg-gray-900">
             <div>
                 <AppSidebar />
                 <Backdrop />
@@ -29,6 +31,13 @@ const LayoutContent = ({ children }: { children: React.ReactNode }) => {
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
         <SidebarProvider>
+            <Toaster
+                position="top-right"
+                containerStyle={{ zIndex: 999999 }}
+                toastOptions={{
+                    duration: 3000,
+                }}
+            />
             <LayoutContent children={children} />
         </SidebarProvider>
     );
