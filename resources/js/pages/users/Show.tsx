@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react';
 
 import PageBreadcrumb from '@/components/PageBreadCrumb';
-import Card from '@/components/ui/card';
+import Card from '@/components/ui/Card';
 import AppLayout from '@/layouts/AppLayout';
 import users from '@/routes/users';
 
@@ -34,8 +34,6 @@ type Props = {
 };
 const Show = ({ user }: Props) => {
     const title = 'Detail User';
-
-    console.log(user);
 
     return (
         <AppLayout>

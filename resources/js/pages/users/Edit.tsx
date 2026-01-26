@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 
 import PageBreadcrumb from '@/components/PageBreadCrumb';
 import Button from '@/components/ui/Button';
-import Card from '@/components/ui/card';
+import Card from '@/components/ui/Card';
 import InputField from '@/components/ui/InputField';
 import InputGroup from '@/components/ui/InputGroup';
 import InputSelect from '@/components/ui/InputSelect';

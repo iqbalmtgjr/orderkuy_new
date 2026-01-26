@@ -7,7 +7,7 @@ import Modal from '@/components/Modal';
 import PageBreadcrumb from '@/components/PageBreadCrumb';
 import Table from '@/components/Table';
 import Button from '@/components/ui/Button';
-import Card from '@/components/ui/card';
+import Card from '@/components/ui/Card';
 import useModal from '@/hooks/useModal';
 import AppLayout from '@/layouts/AppLayout';
 import users from '@/routes/users';
