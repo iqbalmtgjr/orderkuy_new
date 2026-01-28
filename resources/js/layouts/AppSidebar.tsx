@@ -2,21 +2,30 @@ import { Link, usePage } from '@inertiajs/react';
 import {
     ChevronDown,
     Ellipsis,
-    Eye,
     LayoutDashboard,
+    Store,
     Users,
 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useSidebar } from '@/context/SidebarContext';
 import { dashboard } from '@/routes';
+import shops from '@/routes/shops';
 import users from '@/routes/users';
 
+type Role = 'Super Admin' | 'Admin' | 'Dapur' | 'Kasir' | 'Pelanggan';
 type NavItem = {
     name: string;
     icon: React.ReactNode;
     path?: string;
-    subItems?: { name: string; path: string; pro?: boolean; new?: boolean }[];
+    roles: Role[];
+    subItems?: {
+        name: string;
+        path: string;
+        roles: Role[];
+        pro?: boolean;
+        new?: boolean;
+    }[];
 };
 
 const navItems: NavItem[] = [
@@ -24,38 +33,81 @@ const navItems: NavItem[] = [
         icon: <LayoutDashboard />,
         name: 'Dashboard',
         path: dashboard.url(),
-    },
-    {
-        icon: <Users />,
-        name: 'Kelola User',
-        path: users.index.url(),
-    },
-    {
-        name: 'Pages',
-        icon: <Eye />,
-        subItems: [
-            { name: 'Blank Page', path: '/blank', pro: false },
-            { name: '404 Error', path: '/error-404', pro: false },
-        ],
+        roles: ['Super Admin', 'Admin', 'Dapur', 'Kasir'],
     },
 ];
 
 const othersItems: NavItem[] = [
     {
-        icon: <Eye />,
-        name: 'Authentication',
-        subItems: [
-            { name: 'Sign In', path: '/signin', pro: false },
-            { name: 'Sign Up', path: '/signup', pro: false },
-        ],
+        icon: <Users />,
+        name: 'Kelola User',
+        path: users.index.url(),
+        roles: ['Super Admin', 'Admin'],
     },
+    {
+        icon: <Store />,
+        name: 'Kelola Toko',
+        path: shops.index.url(),
+        roles: ['Super Admin', 'Admin'],
+    },
+    {
+        icon: <Users />,
+        name: 'Kelola Karyawan Toko',
+        path: '/',
+        roles: ['Super Admin', 'Admin'],
+    },
+    {
+        icon: <Users />,
+        name: 'Kelola Meja',
+        path: '/',
+        roles: ['Super Admin', 'Admin'],
+    },
+    {
+        icon: <Users />,
+        name: 'Kelola Menu',
+        path: '/',
+        roles: ['Super Admin', 'Admin'],
+    },
+    {
+        icon: <Users />,
+        name: 'Laporan',
+        path: '/',
+        roles: ['Super Admin', 'Admin'],
+    },
+    {
+        icon: <Users />,
+        name: 'Pengeluaran',
+        path: '/',
+        roles: ['Super Admin', 'Admin'],
+    },
+    {
+        icon: <Users />,
+        name: 'Kategori',
+        path: '/',
+        roles: ['Super Admin', 'Admin'],
+    },
+    {
+        icon: <Users />,
+        name: 'D Pesanan',
+        path: '/',
+        roles: ['Super Admin', 'Admin'],
+    },
+    // {
+    //     icon: <Eye />,
+    //     name: 'Authentication',
+    //     subItems: [
+    //         { name: 'Sign In', path: '/signin', pro: false },
+    //         { name: 'Sign Up', path: '/signup', pro: false },
+    //     ],
+    // },
 ];
 
 const AppSidebar: React.FC = () => {
     const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
     const location = usePage().url;
-    // console.log('Current location:', location);
-    // const location = useLocation();
+
+    const { auth } = usePage().props;
+    const role = auth.user.role.name;
 
     const [openSubmenu, setOpenSubmenu] = useState<{
         type: 'main' | 'others';
@@ -71,6 +123,11 @@ const AppSidebar: React.FC = () => {
         (path: string) => location === path,
         [location],
     );
+
+    const filterByRole = (items: NavItem[]) =>
+        items.filter(
+            (item) => !item.roles || (role && item.roles.includes(role)),
+        );
 
     useEffect(() => {
         let submenuMatched = false;
@@ -268,10 +325,10 @@ const AppSidebar: React.FC = () => {
         <aside
             className={`fixed top-0 left-0 z-50 mt-16 flex h-screen flex-col border-r border-gray-200 bg-white px-5 text-gray-900 transition-all duration-300 ease-in-out lg:mt-0 dark:border-gray-800 dark:bg-gray-900 ${
                 isExpanded || isMobileOpen
-                    ? 'w-[290px]'
+                    ? 'w-72.5'
                     : isHovered
-                      ? 'w-[290px]'
-                      : 'w-[90px]'
+                      ? 'w-72.5'
+                      : 'w-22.5'
             } ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
             onMouseEnter={() => !isExpanded && setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -316,14 +373,14 @@ const AppSidebar: React.FC = () => {
                     <div className="flex flex-col gap-4">
                         <div>
                             <h2
-                                className={`mb-4 flex text-xs leading-[20px] text-gray-400 uppercase ${
+                                className={`mb-4 flex text-xs leading-5 text-gray-400 uppercase ${
                                     !isExpanded && !isHovered
                                         ? 'lg:justify-center'
                                         : 'justify-start'
                                 }`}
                             >
                                 {isExpanded || isHovered || isMobileOpen ? (
-                                    'Menu'
+                                    ''
                                 ) : (
                                     <Ellipsis
                                         strokeWidth={1}
@@ -331,23 +388,26 @@ const AppSidebar: React.FC = () => {
                                     />
                                 )}
                             </h2>
-                            {renderMenuItems(navItems, 'main')}
+                            {renderMenuItems(filterByRole(navItems), 'main')}
                         </div>
                         <div className="">
                             <h2
-                                className={`mb-4 flex text-xs leading-[20px] text-gray-400 uppercase ${
+                                className={`mb-4 flex text-xs leading-5 text-gray-400 uppercase ${
                                     !isExpanded && !isHovered
                                         ? 'lg:justify-center'
                                         : 'justify-start'
                                 }`}
                             >
                                 {isExpanded || isHovered || isMobileOpen ? (
-                                    'Others'
+                                    'Menu Admin'
                                 ) : (
                                     <Ellipsis strokeWidth={1} />
                                 )}
                             </h2>
-                            {renderMenuItems(othersItems, 'others')}
+                            {renderMenuItems(
+                                filterByRole(othersItems),
+                                'others',
+                            )}
                         </div>
                     </div>
                 </nav>

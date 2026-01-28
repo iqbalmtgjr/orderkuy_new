@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 
 import PageBreadcrumb from '@/components/PageBreadCrumb';
 import Button from '@/components/ui/Button';
-import Card from '@/components/ui/card';
+import Card from '@/components/ui/Card';
 import InputField from '@/components/ui/InputField';
 import InputGroup from '@/components/ui/InputGroup';
 import InputSelect from '@/components/ui/InputSelect';
@@ -46,12 +46,12 @@ const Create = ({ roles, shops }: Props) => {
     };
 
     const optionRoles = roles.map((role) => ({
-        value: role.id,
+        value: String(role.id),
         label: role.name,
     }));
 
     const optionShops = shops.map((shop) => ({
-        value: shop.id,
+        value: String(shop.id),
         label: shop.name,
     }));
 
@@ -59,7 +59,7 @@ const Create = ({ roles, shops }: Props) => {
         <AppLayout>
             <PageBreadcrumb pageTitle={title} />
             <div className="space-y-6">
-                <Card title={title}>
+                <Card title="Data User Baru">
                     <form onSubmit={handleSubmit}>
                         <div className="space-y-6">
                             <InputGroup label="Nama Lengkap" htmlFor="name">
@@ -142,6 +142,7 @@ const Create = ({ roles, shops }: Props) => {
                                 <InputSelect
                                     options={optionShops}
                                     placeholder="Pilih Toko.."
+                                    value={data.shop_id}
                                     onChange={(value) =>
                                         setData('shop_id', value)
                                     }
@@ -156,6 +157,7 @@ const Create = ({ roles, shops }: Props) => {
                                 <InputSelect
                                     options={optionRoles}
                                     placeholder="Pilih Role.."
+                                    value={data.role_id}
                                     onChange={(value) =>
                                         setData('role_id', value)
                                     }

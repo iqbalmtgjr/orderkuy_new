@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -12,11 +13,15 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::middleware('role:Super Admin,Admin')->group(function () {
+        Route::get('dashboard', function () {
+            return Inertia::render('Dashboard');
+        })->name('dashboard');
+    });
+
 
     Route::resource('users', UserController::class);
+    Route::resource('shops', ShopController::class);
 });
 
 require __DIR__ . '/settings.php';

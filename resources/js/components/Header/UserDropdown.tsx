@@ -1,13 +1,15 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 import { logout } from '@/routes';
+import { SharedData } from '@/types';
 
 import { Dropdown } from '../ui/Dropdown';
 import { DropdownItem } from '../ui/DropdownItem';
 
 export default function UserDropdown() {
     const [isOpen, setIsOpen] = useState(false);
+    const { auth } = usePage<SharedData>().props;
 
     function toggleDropdown() {
         setIsOpen(!isOpen);
@@ -23,11 +25,14 @@ export default function UserDropdown() {
                 className="dropdown-toggle flex items-center text-gray-700 dark:text-gray-400"
             >
                 <span className="mr-3 h-11 w-11 overflow-hidden rounded-full">
-                    <img src="/images/user/owner.jpg" alt="User" />
+                    <img
+                        src="/storage/images/profile/userIcon.png"
+                        alt="User"
+                    />
                 </span>
 
                 <span className="mr-1 block text-theme-sm font-medium">
-                    Musharof
+                    {auth.user.name}
                 </span>
                 <svg
                     className={`stroke-gray-500 transition-transform duration-200 dark:stroke-gray-400 ${
@@ -52,14 +57,17 @@ export default function UserDropdown() {
             <Dropdown
                 isOpen={isOpen}
                 onClose={closeDropdown}
-                className="absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
+                className="absolute right-0 mt-4.25 flex w-65 flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
             >
                 <div>
                     <span className="block text-theme-sm font-medium text-gray-700 dark:text-gray-400">
-                        Musharof Chowdhury
+                        {auth.user.name}
                     </span>
                     <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
-                        randomuser@pimjo.com
+                        {auth.user.email}
+                    </span>
+                    <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
+                        {auth.user.role.name}
                     </span>
                 </div>
 

@@ -6,8 +6,8 @@ type UserFormProps = {
     email: string;
     password: string;
     password_confirmation: string;
-    shop_id: string | null;
-    role_id: string | null;
+    shop_id: string;
+    role_id: string;
 };
 
 const useCreateUserForm = () => {
@@ -17,8 +17,8 @@ const useCreateUserForm = () => {
         email: '',
         password: '',
         password_confirmation: '',
-        shop_id: null,
-        role_id: null,
+        shop_id: '',
+        role_id: '',
     });
 };
 

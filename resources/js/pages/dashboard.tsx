@@ -1,25 +1,27 @@
 import PageBreadcrumb from '@/components/PageBreadCrumb';
+import Card from '@/components/ui/Card';
 import AppLayout from '@/layouts/AppLayout';
 
-export default function Dashboard() {
+const Dashboard = () => {
+    const title = 'Home';
+
     return (
         <AppLayout>
             <div>
-                <PageBreadcrumb pageTitle="Dashboard" />
-                <div className="min-h-screen rounded-2xl border border-gray-200 bg-white px-5 py-7 xl:px-10 xl:py-12 dark:border-gray-800 dark:bg-white/3">
-                    <div className="mx-auto w-full max-w-157.5 text-center">
-                        <h3 className="mb-4 text-theme-xl font-semibold text-gray-800 sm:text-2xl dark:text-white/90">
-                            Card Title Here
-                        </h3>
-
-                        <p className="text-sm text-gray-500 sm:text-base dark:text-gray-400">
-                            Start putting content on grids or panels, you can
-                            also use different combinations of grids.Please
-                            check out the dashboard and other pages
-                        </p>
-                    </div>
+                <PageBreadcrumb pageTitle={title} />
+                <div className="space-y-6">
+                    <Card title="Home" href="/" addButton>
+                        Home :: Lorem ipsum dolor, sit amet consectetur
+                        adipisicing elit. Voluptatem tenetur molestias commodi,
+                        dolores, repellendus est maxime laudantium recusandae
+                        soluta blanditiis totam iste perferendis temporibus
+                        consequuntur aspernatur tempora obcaecati facilis
+                        quidem.
+                    </Card>
                 </div>
             </div>
         </AppLayout>
     );
-}
+};
+
+export default Dashboard;

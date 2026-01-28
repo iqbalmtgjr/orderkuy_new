@@ -57,12 +57,12 @@ const Edit = ({ user, roles, shops }: Props) => {
     };
 
     const optionRoles = roles.map((role) => ({
-        value: role.id,
+        value: String(role.id),
         label: role.name,
     }));
 
     const optionShops = shops.map((shop) => ({
-        value: shop.id,
+        value: String(shop.id),
         label: shop.name,
     }));
 
@@ -119,6 +119,7 @@ const Edit = ({ user, roles, shops }: Props) => {
                                 <InputSelect
                                     options={optionShops}
                                     placeholder="Pilih Toko.."
+                                    value={data.shop_id}
                                     onChange={(value) =>
                                         setData('shop_id', value)
                                     }
@@ -127,13 +128,13 @@ const Edit = ({ user, roles, shops }: Props) => {
                                     className="dark:bg-dark-900"
                                     error={!!errors.shop_id}
                                     hint={errors.shop_id}
-                                    defaultValue={data.shop_id ?? undefined}
                                 />
                             </InputGroup>
                             <InputGroup label="Role" htmlFor="role_id">
                                 <InputSelect
                                     options={optionRoles}
                                     placeholder="Pilih Role.."
+                                    value={data.role_id}
                                     onChange={(value) =>
                                         setData('role_id', value)
                                     }
@@ -142,7 +143,6 @@ const Edit = ({ user, roles, shops }: Props) => {
                                     className="dark:bg-dark-900"
                                     error={!!errors.role_id}
                                     hint={errors.role_id}
-                                    defaultValue={data.role_id ?? undefined}
                                 />
                             </InputGroup>
                         </div>

@@ -38,7 +38,7 @@ export default function Welcome() {
 
             {/*  Hero Section */}
             <section className="fade-in-orderkuy hero-sctn-orderkuy relative flex items-center justify-center overflow-hidden py-32">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-700/70 to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-r from-purple-700/70 to-transparent"></div>
                 <div className="relative z-10 container mx-auto px-6">
                     <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
                         <div className="slide-in-left-orderkuy">

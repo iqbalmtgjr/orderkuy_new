@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return Inertia::render('users/Index')->with([
+        return Inertia::render('users/Index', [
             'usersProps' => User::with(['role', 'shop'])->latest()->paginate(10),
         ]);
     }
@@ -38,14 +38,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required',
-            'username' => 'required|unique:users,username',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed',
-            'shop_id' => 'required',
-            'role_id' => 'required',
+        $request->validate([
+            'name' => 'required|string',
+            'username' => 'required|string|unique:users,username',
+            'email' => 'required|string|email|unique:users,email',
+            'password' => 'required|string|confirmed',
+            'shop_id' => 'required|integer',
+            'role_id' => 'required|integer',
         ]);
+
+        $data = [
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => $request->password,
+            'shop_id' => (int) $request->shop_id,
+            'role_id' => (int) $request->role_id,
+        ];
 
         User::create([
             'name'      => $data['name'],
@@ -98,13 +107,21 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
 
-        $data = $request->validate([
-            'name' => 'required',
-            'username' => ['required', Rule::unique('users', 'username')->ignore($user->id)],
-            'email' => ['required', Rule::unique('users', 'email')->ignore($user->id)],
-            'shop_id' => 'required',
-            'role_id' => 'required',
+        $request->validate([
+            'name' => 'required|string',
+            'username' => ['required', 'string', Rule::unique('users', 'username')->ignore($user->id)],
+            'email' => ['required', 'string', Rule::unique('users', 'email')->ignore($user->id)],
+            'shop_id' => 'required|integer',
+            'role_id' => 'required|integer',
         ]);
+
+        $data = [
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'shop_id' => (int) $request->shop_id,
+            'role_id' => (int) $request->role_id,
+        ];
 
         $user->update($data);
 

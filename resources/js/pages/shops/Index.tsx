@@ -1,7 +1,7 @@
 import { Link, useForm } from '@inertiajs/react';
 import { Eye, SquarePen, Trash2 } from 'lucide-react';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 import Modal from '@/components/Modal';
 import PageBreadcrumb from '@/components/PageBreadCrumb';
@@ -10,24 +10,16 @@ import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import useModal from '@/hooks/useModal';
 import AppLayout from '@/layouts/AppLayout';
-import users from '@/routes/users';
-
-type Role = {
-    name: string;
-};
+import shops from '@/routes/shops';
 
 type Shop = {
-    name: string;
-};
-
-type User = {
     id: number;
     encrypted_id: string;
     name: string;
-    username: string;
-    email: string;
-    role: Role;
-    shop: Shop;
+    address: string;
+    status: number;
+    operational: number;
+    image: string;
 };
 
 type Pagination<T> = {
@@ -38,11 +30,11 @@ type Pagination<T> = {
 };
 
 type Props = {
-    usersProps: Pagination<User>;
+    shopsProps: Pagination<Shop>;
 };
 
-const Index = ({ usersProps }: Props) => {
-    const title = 'Kelola User';
+const Index = ({ shopsProps }: Props) => {
+    const title = 'Kelola Toko';
     const { delete: destroy } = useForm({});
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const { isOpen, openModal, closeModal } = useModal();
@@ -54,7 +46,7 @@ const Index = ({ usersProps }: Props) => {
 
     const handleDelete = (): void => {
         if (selectedId) {
-            destroy(users.destroy.url(selectedId), {
+            destroy(shops.destroy.url(selectedId), {
                 onSuccess: () => {
                     closeModal();
                     setSelectedId(null);
@@ -71,52 +63,54 @@ const Index = ({ usersProps }: Props) => {
                 <PageBreadcrumb pageTitle={title} />
                 <div className="space-y-6">
                     <Card
-                        title="List Data User"
-                        href={users.create.url()}
+                        title="List Data Toko"
+                        href={shops.create.url()}
                         addButton
                     >
                         <Table>
                             <Table.Header>
                                 <Table.Row>
                                     <Table.Cell isHeader>No</Table.Cell>
+                                    <Table.Cell isHeader>Nama Toko</Table.Cell>
+                                    <Table.Cell isHeader>Alamat</Table.Cell>
+                                    <Table.Cell isHeader>Status</Table.Cell>
                                     <Table.Cell isHeader>
-                                        Nama Lengkap
+                                        Operasional
                                     </Table.Cell>
-                                    <Table.Cell isHeader>Username</Table.Cell>
-                                    <Table.Cell isHeader>Email</Table.Cell>
-                                    <Table.Cell isHeader>Role</Table.Cell>
-                                    <Table.Cell isHeader>Shop</Table.Cell>
                                     <Table.Cell isHeader>Aksi</Table.Cell>
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {usersProps.data.map((user, index) => (
-                                    <Table.Row key={user.id}>
+                                {shopsProps.data.map((shop, index) => (
+                                    <Table.Row key={shop.id}>
                                         <Table.Cell>
-                                            {usersProps.from + index}
+                                            {shopsProps.from + index}
                                         </Table.Cell>
-                                        <Table.Cell>{user.name}</Table.Cell>
-                                        <Table.Cell>{user.username}</Table.Cell>
-                                        <Table.Cell>{user.email}</Table.Cell>
+                                        <Table.Cell>{shop.name}</Table.Cell>
+                                        <Table.Cell>{shop.address}</Table.Cell>
                                         <Table.Cell>
-                                            {user.role.name}
+                                            {shop.status == 1
+                                                ? 'Aktif'
+                                                : 'Tidak Aktif'}
                                         </Table.Cell>
                                         <Table.Cell>
-                                            {user.shop.name}
+                                            {shop.operational == 1
+                                                ? 'Buka'
+                                                : 'Tutup'}
                                         </Table.Cell>
                                         <Table.Cell>
                                             <div className="left-justify-center flex items-center">
                                                 <Link
-                                                    href={users.show.url(
-                                                        user.encrypted_id,
+                                                    href={shops.show.url(
+                                                        shop.encrypted_id,
                                                     )}
                                                     className="text-green-500 hover:text-green-700"
                                                 >
                                                     <Eye size={16} />
                                                 </Link>
                                                 <Link
-                                                    href={users.edit.url(
-                                                        user.encrypted_id,
+                                                    href={shops.edit.url(
+                                                        shop.encrypted_id,
                                                     )}
                                                     className="ml-2 text-blue-500 hover:text-blue-700"
                                                 >
@@ -126,7 +120,7 @@ const Index = ({ usersProps }: Props) => {
                                                     className="ml-2 text-red-500 hover:text-red-700"
                                                     onClick={() =>
                                                         confirmDelete(
-                                                            user.encrypted_id,
+                                                            shop.encrypted_id,
                                                         )
                                                     }
                                                 >

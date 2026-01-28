@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('gender');
-            $table->string('phone_number');
-            $table->string('address');
-            $table->string('dob');
+            $table->string('phone_number')->nullable();
+            $table->string('address')->nullable();
+            $table->date('dob')->nullable();
             $table->timestamps();
         });
     }
