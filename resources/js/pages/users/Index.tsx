@@ -1,14 +1,12 @@
 import { Link, useForm } from '@inertiajs/react';
 import { Eye, SquarePen, Trash2 } from 'lucide-react';
-import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import Modal from '@/components/Modal';
+import DeleteConfirmationModal from '@/components/DeleteConfirmationModal';
 import PageBreadcrumb from '@/components/PageBreadCrumb';
 import Table from '@/components/Table';
-import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
-import useModal from '@/hooks/useModal';
+import useDeleteConfirmation from '@/hooks/useDeleteConfirmation';
 import AppLayout from '@/layouts/AppLayout';
 import users from '@/routes/users';
 
@@ -43,26 +41,20 @@ type Props = {
 
 const Index = ({ usersProps }: Props) => {
     const title = 'Kelola User';
-    const { delete: destroy } = useForm({});
-    const [selectedId, setSelectedId] = useState<string | null>(null);
-    const { isOpen, openModal, closeModal } = useModal();
-
-    const confirmDelete = (encrypted_id: string): void => {
-        setSelectedId(encrypted_id);
-        openModal();
-    };
+    const { delete: destroy, processing } = useForm({});
+    const { isOpenDelete, item, openDelete, closeDelete } =
+        useDeleteConfirmation();
 
     const handleDelete = (): void => {
-        if (selectedId) {
-            destroy(users.destroy.url(selectedId), {
-                onSuccess: () => {
-                    closeModal();
-                    setSelectedId(null);
-                    toast.success('Data berhasil dihapus');
-                },
-                preserveScroll: true,
-            });
-        }
+        if (!item.id) return;
+
+        destroy(users.destroy.url(item.id), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Data berhasil dihapus');
+                closeDelete();
+            },
+        });
     };
 
     return (
@@ -125,8 +117,9 @@ const Index = ({ usersProps }: Props) => {
                                                 <button
                                                     className="ml-2 text-red-500 hover:text-red-700"
                                                     onClick={() =>
-                                                        confirmDelete(
+                                                        openDelete(
                                                             user.encrypted_id,
+                                                            'data ' + user.name,
                                                         )
                                                     }
                                                 >
@@ -140,39 +133,13 @@ const Index = ({ usersProps }: Props) => {
                         </Table>
                     </Card>
                 </div>
-                <Modal
-                    isOpen={isOpen}
-                    onClose={closeModal}
-                    className="m-4 max-w-175"
-                >
-                    <div className="relative no-scrollbar w-full overflow-y-auto rounded-3xl bg-white p-4 lg:p-11 dark:bg-gray-900">
-                        <div className="px-2 pr-14">
-                            <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-                                Konfirmasi Hapus
-                            </h4>
-                            <p className="mb-6 text-sm text-gray-500 lg:mb-7 dark:text-gray-400">
-                                Apakah kamu yakin ingin menghapus data ini?
-                                Tindakan ini tidak bisa dibatalkan.
-                            </p>
-                        </div>
-                        <div className="mt-6 flex items-center justify-center gap-3 px-2">
-                            <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={closeModal}
-                            >
-                                Tutup
-                            </Button>
-                            <Button
-                                size="sm"
-                                className="bg-red-500"
-                                onClick={handleDelete}
-                            >
-                                Hapus
-                            </Button>
-                        </div>
-                    </div>
-                </Modal>
+                <DeleteConfirmationModal
+                    isOpen={isOpenDelete}
+                    onClose={closeDelete}
+                    onConfirm={handleDelete}
+                    processing={processing}
+                    itemName={item.name}
+                />
             </div>
         </AppLayout>
     );

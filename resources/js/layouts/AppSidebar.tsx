@@ -1,5 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import {
+    Armchair,
+    ChartBarStacked,
     ChevronDown,
     Ellipsis,
     LayoutDashboard,
@@ -10,7 +12,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useSidebar } from '@/context/SidebarContext';
 import { dashboard } from '@/routes';
+import categories from '@/routes/categories';
 import shops from '@/routes/shops';
+import tables from '@/routes/tables';
 import users from '@/routes/users';
 
 type Role = 'Super Admin' | 'Admin' | 'Dapur' | 'Kasir' | 'Pelanggan';
@@ -57,9 +61,9 @@ const othersItems: NavItem[] = [
         roles: ['Super Admin', 'Admin'],
     },
     {
-        icon: <Users />,
+        icon: <Armchair />,
         name: 'Kelola Meja',
-        path: '/',
+        path: tables.index.url(),
         roles: ['Super Admin', 'Admin'],
     },
     {
@@ -81,9 +85,9 @@ const othersItems: NavItem[] = [
         roles: ['Super Admin', 'Admin'],
     },
     {
-        icon: <Users />,
+        icon: <ChartBarStacked />,
         name: 'Kategori',
-        path: '/',
+        path: categories.index.url(),
         roles: ['Super Admin', 'Admin'],
     },
     {

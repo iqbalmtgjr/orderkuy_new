@@ -8,6 +8,7 @@ type CardProps = {
     desc?: string;
     href?: string;
     addButton?: boolean;
+    modal?: () => void;
 };
 
 const Card: React.FC<CardProps> = ({
@@ -17,6 +18,7 @@ const Card: React.FC<CardProps> = ({
     desc = '',
     href,
     addButton = false,
+    modal,
 }) => {
     return (
         <div
@@ -34,7 +36,7 @@ const Card: React.FC<CardProps> = ({
                         </p>
                     )}
                 </div>
-                {addButton && (
+                {addButton && href && (
                     <Link
                         href={href}
                         type="button"
@@ -42,6 +44,16 @@ const Card: React.FC<CardProps> = ({
                     >
                         Tambah
                     </Link>
+                )}
+
+                {addButton && modal && (
+                    <button
+                        onClick ={modal}
+                        type="button"
+                        className="flex items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 lg:inline-flex lg:w-auto dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/3 dark:hover:text-gray-200"
+                    >
+                        Tambah
+                    </button>
                 )}
             </div>
 

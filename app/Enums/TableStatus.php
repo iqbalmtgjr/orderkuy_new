@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Enums;
+
+enum TableStatus: int
+{
+  case Active = 1;
+  case Inactive = 0;
+
+  public function label(): string
+  {
+    return match ($this) {
+      self::Active => 'Aktif',
+      self::Inactive => 'Tidak Aktif',
+    };
+  }
+
+  public static function options(): array
+  {
+    return array_map(fn($status) => [
+      'value' => $status->value,
+      'label' => $status->label(),
+    ], self::cases());
+  }
+}

@@ -3,17 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Shop extends Model
+class Table extends Model
 {
     protected $fillable = [
-        'name',
-        'address',
+        'shop_id',
+        'table_number',
         'status',
-        'operational',
-        'image',
     ];
 
     protected $appends = ['encrypted_id'];
@@ -23,13 +21,8 @@ class Shop extends Model
         return Crypt::encryptString($this->id);
     }
 
-    public function users(): HasMany
+    public function shop(): BelongsTo
     {
-        return $this->hasMany(User::class);
-    }
-
-    public function tables(): HasMany
-    {
-        return $this->hasMany(Table::class);
+        return $this->belongsTo(Shop::class);
     }
 }
